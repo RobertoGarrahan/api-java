@@ -5,7 +5,7 @@ import com.exemplo.veiculosapi.controllers.VeiculoController;
 
 public class Main {
     public static void main(String[] args) {
-        int port = Integer.parseInt(System.getenv().getOrDefault("PORT", "8081"));
+        int port = Integer.parseInt(System.getenv().getOrDefault("PORT", "8080"));
 
         Javalin app = Javalin.create().start(port);
 
