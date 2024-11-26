@@ -1,0 +1,4 @@
+com\exemplo\veiculosapi\services\VeiculoService.class
+com\exemplo\veiculosapi\controllers\VeiculoController.class
+com\exemplo\veiculosapi\models\Veiculo.class
+com\exemplo\veiculosapi\Main.class
