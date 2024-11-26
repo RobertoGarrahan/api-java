@@ -1,39 +1,41 @@
 package com.exemplo.veiculosapi.controllers;
 
-import io.javalin.http.Context;
 import com.exemplo.veiculosapi.models.Veiculo;
-import com.exemplo.veiculosapi.services.VeiculoService;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
+@RequestMapping("/veiculos")
 public class VeiculoController {
-    private final VeiculoService veiculoService = new VeiculoService();
 
-    public void inserirVeiculo(Context ctx) {
-        Veiculo novoVeiculo = ctx.bodyAsClass(Veiculo.class);
-        veiculoService.adicionarVeiculo(novoVeiculo);
-        ctx.status(201).json(novoVeiculo);
+    private final List<Veiculo> veiculos = new ArrayList<>();
+
+    @PostMapping
+    public Veiculo adicionarVeiculo(@RequestBody Veiculo veiculo) {
+        veiculos.add(veiculo);
+        return veiculo;
     }
 
-    public void listarVeiculos(Context ctx) {
-        ctx.json(veiculoService.listarVeiculos());
+    @GetMapping
+    public List<Veiculo> listarVeiculos() {
+        return veiculos;
     }
 
-    public void buscarVeiculoPorId(Context ctx) {
-        int id = Integer.parseInt(ctx.pathParam("id"));
-        Veiculo veiculo = veiculoService.buscarVeiculoPorId(id);
-        if (veiculo != null) {
-            ctx.json(veiculo);
-        } else {
-            ctx.status(404).result("Veículo não encontrado");
+    @GetMapping("/{id}")
+    public Veiculo buscarVeiculoPorId(@PathVariable int id) {
+        if (id >= 0 && id < veiculos.size()) {
+            return veiculos.get(id);
         }
+        throw new RuntimeException("Veículo não encontrado");
     }
 
-    public void deletarVeiculo(Context ctx) {
-        int id = Integer.parseInt(ctx.pathParam("id"));
-        Veiculo veiculo = veiculoService.deletarVeiculo(id);
-        if (veiculo != null) {
-            ctx.json(veiculo);
-        } else {
-            ctx.status(404).result("Veículo não encontrado");
+    @DeleteMapping("/{id}")
+    public Veiculo deletarVeiculo(@PathVariable int id) {
+        if (id >= 0 && id < veiculos.size()) {
+            return veiculos.remove(id);
         }
+        throw new RuntimeException("Veículo não encontrado");
     }
 }
