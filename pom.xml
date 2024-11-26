@@ -31,6 +31,8 @@
             <artifactId>logback-classic</artifactId>
             <version>1.4.11</version>
         </dependency>
+
+        <!-- Jackson (Para JSON Handling) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -40,7 +42,7 @@
 
     <build>
         <plugins>
-        
+            <!-- Plugin para compilar o código -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -51,6 +53,7 @@
                 </configuration>
             </plugin>
 
+            <!-- Plugin para executar o projeto diretamente pelo Maven -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -60,6 +63,7 @@
                 </configuration>
             </plugin>
 
+            <!-- Plugin para gerar o manifesto no JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -71,22 +75,22 @@
                         </manifest>
                     </archive>
                 </configuration>
-        </plugin>
+            </plugin>
 
-        <!-- Plugin para criar um JAR executável -->
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-shade-plugin</artifactId>
-            <version>3.4.1</version>
-            <executions>
-                <execution>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>shade</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
+            <!-- Plugin para criar um JAR executável com dependências -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
